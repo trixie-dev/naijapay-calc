@@ -12,7 +12,6 @@
     --card: #16161f;
     --border: #1e1e2e;
     --gold: #f5c842;
-    --gold2: #e8a020;
     --green: #22c55e;
     --red: #ef4444;
     --orange: #f97316;
@@ -20,490 +19,110 @@
     --muted: #6b6880;
     --accent: #8b5cf6;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Outfit', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Animated background */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(245,200,66,0.06) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* Naira pattern overlay */
-  body::after {
-    content: '₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦';
-    position: fixed;
-    inset: 0;
-    font-size: 80px;
-    line-height: 1.4;
-    color: rgba(245,200,66,0.015);
-    word-break: break-all;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-  }
-
-  /* Header */
-  header {
-    text-align: center;
-    margin-bottom: 60px;
-    animation: fadeDown 0.7s ease both;
-  }
-
-  @keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .logo-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(245,200,66,0.1);
-    border: 1px solid rgba(245,200,66,0.25);
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-
-  .logo-dot {
-    width: 6px;
-    height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    animation: pulse 2s ease infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.8); }
-  }
-
-  h1 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(42px, 8vw, 72px);
-    font-weight: 900;
-    line-height: 1;
-    margin-bottom: 16px;
-    letter-spacing: -2px;
-  }
-
-  h1 span {
-    color: var(--gold);
-    font-style: italic;
-  }
-
-  .subtitle {
-    font-size: 17px;
-    color: var(--muted);
-    font-weight: 300;
-    max-width: 500px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  /* Form card */
-  .form-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 40px;
-    margin-bottom: 32px;
-    animation: fadeUp 0.7s ease 0.2s both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-bottom: 32px;
-  }
-
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
+  body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 80% 50% at 20% 20%, rgba(245,200,66,0.06) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+  body::after { content: '₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦'; position: fixed; inset: 0; font-size: 80px; line-height: 1.4; color: rgba(245,200,66,0.015); word-break: break-all; pointer-events: none; z-index: 0; overflow: hidden; }
+  .container { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+  header { text-align: center; margin-bottom: 48px; animation: fadeDown 0.7s ease both; }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .logo-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(245,200,66,0.1); border: 1px solid rgba(245,200,66,0.25); padding: 6px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .logo-dot { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s ease infinite; }
+  h1 { font-family: 'Fraunces', serif; font-size: clamp(42px, 8vw, 72px); font-weight: 900; line-height: 1; margin-bottom: 16px; letter-spacing: -2px; }
+  h1 span { color: var(--gold); font-style: italic; }
+  .subtitle { font-size: 17px; color: var(--muted); font-weight: 300; max-width: 500px; margin: 0 auto; line-height: 1.6; }
+  .rate-banner { display: flex; align-items: center; justify-content: center; gap: 12px; background: rgba(245,200,66,0.06); border: 1px solid rgba(245,200,66,0.15); border-radius: 10px; padding: 10px 20px; margin-bottom: 12px; font-size: 13px; color: var(--muted); animation: fadeUp 0.7s ease 0.1s both; flex-wrap: wrap; }
+  .rate-banner strong { color: var(--gold); font-family: 'DM Mono', monospace; }
+  .rate-fixed { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--orange); font-weight: 600; }
+  .rate-fixed-dot { width: 5px; height: 5px; background: var(--orange); border-radius: 50%; }
+  .rate-note { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 32px; padding: 0 20px; animation: fadeUp 0.7s ease 0.15s both; }
+  .form-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 40px; margin-bottom: 32px; animation: fadeUp 0.7s ease 0.2s both; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+  .field { display: flex; flex-direction: column; gap: 8px; }
   .field.full { grid-column: 1 / -1; }
-
-  label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  select, input {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    color: var(--text);
-    font-family: 'Outfit', sans-serif;
-    font-size: 15px;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-    width: 100%;
-  }
-
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6880' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    padding-right: 40px;
-    cursor: pointer;
-  }
-
-  select:focus, input:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 0 3px rgba(245,200,66,0.1);
-  }
-
+  label { font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+  select, input { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; color: var(--text); font-family: 'Outfit', sans-serif; font-size: 15px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; width: 100%; }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6880' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
+  select:focus, input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(245,200,66,0.1); }
   select option { background: var(--surface); }
-
-  .rate-input-wrap {
-    position: relative;
-  }
-
-  .rate-input-wrap .currency {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--gold);
-    font-family: 'DM Mono', monospace;
-    font-weight: 500;
-    font-size: 15px;
-  }
-
-  .rate-input-wrap input {
-    padding-left: 36px;
-  }
-
-  .hint {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  .calculate-btn {
-    width: 100%;
-    padding: 18px;
-    background: var(--gold);
-    color: #0a0a0f;
-    border: none;
-    border-radius: 12px;
-    font-family: 'Outfit', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .calculate-btn::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .calculate-btn:hover {
-    background: #f0b800;
-    transform: translateY(-1px);
-    box-shadow: 0 8px 30px rgba(245,200,66,0.3);
-  }
-
-  .calculate-btn:hover::after { opacity: 1; }
+  .rate-input-wrap { position: relative; }
+  .rate-input-wrap .currency { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--gold); font-family: 'DM Mono', monospace; font-weight: 500; font-size: 15px; }
+  .rate-input-wrap input { padding-left: 36px; }
+  .hint { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .calculate-btn { width: 100%; padding: 18px; background: var(--gold); color: #0a0a0f; border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+  .calculate-btn:hover { background: #f0b800; transform: translateY(-1px); box-shadow: 0 8px 30px rgba(245,200,66,0.3); }
   .calculate-btn:active { transform: translateY(0); }
-
-  /* Results */
-  .results {
-    display: none;
-    animation: fadeUp 0.5s ease both;
-  }
-
-  .results.show { display: block; }
-
-  .results-header {
-    text-align: center;
-    margin-bottom: 24px;
-  }
-
-  .verdict {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px 24px;
-    border-radius: 100px;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .verdict.great { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
-  .verdict.fair { background: rgba(249,115,22,0.15); color: var(--orange); border: 1px solid rgba(249,115,22,0.3); }
+  .results { display: none; }
+  .results.show { display: block; animation: fadeUp 0.5s ease both; }
+  .verdict-section { text-align: center; margin-bottom: 32px; }
+  .verdict { display: inline-flex; align-items: center; gap: 10px; padding: 12px 28px; border-radius: 100px; font-weight: 700; font-size: 15px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; }
+  .verdict.excellent { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .verdict.fair { background: rgba(245,200,66,0.15); color: var(--gold); border: 1px solid rgba(245,200,66,0.3); }
   .verdict.low { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
-
-  .verdict-icon { font-size: 18px; }
-
-  .results-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .result-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px 20px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s;
-  }
-
-  .result-card:hover { transform: translateY(-2px); }
-
-  .result-card.primary {
-    border-color: rgba(245,200,66,0.3);
-    background: linear-gradient(135deg, rgba(245,200,66,0.08) 0%, var(--card) 60%);
-  }
-
-  .result-card.primary::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--gold);
-  }
-
-  .result-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 8px;
-    font-weight: 600;
-  }
-
-  .result-value {
-    font-family: 'Fraunces', serif;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .result-card.primary .result-value { color: var(--gold); }
-
-  .result-sub {
-    font-size: 11px;
-    color: var(--muted);
-    font-family: 'DM Mono', monospace;
-  }
-
-  /* Breakdown */
-  .breakdown-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    margin-bottom: 16px;
-  }
-
-  .breakdown-title {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-
-  .breakdown-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(30,30,46,0.8);
-  }
-
+  .verdict-sub { font-size: 15px; color: var(--muted); line-height: 1.6; max-width: 600px; margin: 0 auto; }
+  .comparison-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 600; text-align: center; margin-bottom: 16px; }
+  .comparison-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; margin-bottom: 24px; align-items: stretch; }
+  .comp-col { background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .comp-col.market { border-color: rgba(245,200,66,0.4); background: linear-gradient(135deg, rgba(245,200,66,0.06) 0%, var(--card) 50%); }
+  .comp-col.market::before { content: ''; display: block; height: 3px; background: var(--gold); }
+  .comp-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); }
+  .comp-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+  .comp-rate { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700; }
+  .comp-col.yours .comp-rate { color: var(--text); }
+  .comp-col.market .comp-rate { color: var(--gold); }
+  .comp-rate-sub { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
+  .comp-rows { padding: 8px 0; }
+  .comp-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid rgba(30,30,46,0.6); }
+  .comp-row:last-child { border-bottom: none; }
+  .comp-row-label { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .comp-row-icon { font-size: 14px; }
+  .comp-row-value { font-family: 'DM Mono', monospace; font-size: 13px; font-weight: 500; }
+  .comp-col.yours .comp-row-value { color: var(--text); }
+  .comp-col.market .comp-row-value { color: var(--green); }
+  .comp-row.takehome { background: rgba(255,255,255,0.02); }
+  .comp-row.takehome .comp-row-label { font-weight: 600; color: var(--text); font-size: 14px; }
+  .comp-col.yours .comp-row.takehome .comp-row-value { color: var(--orange); font-size: 15px; }
+  .comp-col.market .comp-row.takehome .comp-row-value { color: var(--green); font-size: 15px; font-weight: 700; }
+  .vs-divider { display: flex; align-items: center; justify-content: center; padding: 0 16px; }
+  .vs-badge { background: var(--surface); border: 1px solid var(--border); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--muted); }
+  .diff-banner { background: rgba(245,200,66,0.08); border: 1px solid rgba(245,200,66,0.2); border-radius: 12px; padding: 16px 24px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .diff-banner-label { font-size: 14px; color: var(--muted); }
+  .diff-banner-label strong { color: var(--text); }
+  .diff-amount { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 900; color: var(--gold); }
+  .diff-sub { font-size: 11px; color: var(--muted); font-family: 'DM Mono', monospace; }
+  .breakdown-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 16px; }
+  .breakdown-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
+  .breakdown-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .platform-tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .platform-tab { padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+  .platform-tab.active { background: rgba(245,200,66,0.1); border-color: rgba(245,200,66,0.3); color: var(--gold); }
+  .platform-tab:hover:not(.active) { border-color: var(--muted); color: var(--text); }
+  .raenest-info { background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.2); border-radius: 10px; padding: 14px 18px; margin-bottom: 16px; font-size: 12px; color: #86efac; line-height: 2; display: none; }
+  .raenest-info strong { color: var(--green); font-size: 13px; display: block; margin-bottom: 4px; }
+  .raenest-info .raenest-row { display: flex; align-items: flex-start; gap: 8px; }
+  .raenest-info .raenest-dot { color: var(--green); margin-top: 1px; flex-shrink: 0; }
+  .breakdown-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(30,30,46,0.8); }
   .breakdown-row:last-child { border-bottom: none; }
-
-  .breakdown-label {
-    font-size: 14px;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .breakdown-icon {
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    flex-shrink: 0;
-  }
-
-  .breakdown-amount {
-    font-family: 'DM Mono', monospace;
-    font-size: 14px;
-    font-weight: 500;
-  }
-
+  .breakdown-label { font-size: 14px; color: var(--text); display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .breakdown-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .breakdown-note { font-size: 11px; color: var(--muted); }
+  .breakdown-amount { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; white-space: nowrap; }
   .breakdown-amount.negative { color: var(--red); }
   .breakdown-amount.positive { color: var(--green); }
   .breakdown-amount.highlight { color: var(--gold); font-size: 16px; font-weight: 700; }
-
-  /* Platform tabs */
-  .platform-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
-
-  .platform-tab {
-    padding: 8px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: var(--surface);
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .platform-tab.active {
-    background: rgba(245,200,66,0.1);
-    border-color: rgba(245,200,66,0.3);
-    color: var(--gold);
-  }
-
-  .platform-tab:hover:not(.active) {
-    border-color: var(--muted);
-    color: var(--text);
-  }
-
-  /* Tips */
-  .tip-card {
-    background: rgba(139,92,246,0.08);
-    border: 1px solid rgba(139,92,246,0.2);
-    border-radius: 12px;
-    padding: 16px 20px;
-    font-size: 13px;
-    color: #c4b5fd;
-    line-height: 1.6;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-
+  .tip-card { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); border-radius: 12px; padding: 16px 20px; font-size: 13px; color: #c4b5fd; line-height: 1.6; display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
   .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-
-  /* Exchange rate banner */
-  .rate-banner {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    background: rgba(245,200,66,0.06);
-    border: 1px solid rgba(245,200,66,0.15);
-    border-radius: 10px;
-    padding: 10px 20px;
-    margin-bottom: 32px;
-    font-size: 13px;
-    color: var(--muted);
-    animation: fadeUp 0.7s ease 0.1s both;
-  }
-
-  .rate-banner strong { color: var(--gold); font-family: 'DM Mono', monospace; }
-
-  .rate-live {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    color: var(--green);
-    font-weight: 600;
-  }
-
-  .rate-live-dot {
-    width: 5px;
-    height: 5px;
-    background: var(--green);
-    border-radius: 50%;
-    animation: pulse 1.5s ease infinite;
-  }
-
-  /* Footer */
-  footer {
-    text-align: center;
-    margin-top: 60px;
-    padding-top: 30px;
-    border-top: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.8;
-  }
-
-  footer a { color: var(--gold); text-decoration: none; }
-
-  @media (max-width: 600px) {
+  .disclaimer { text-align: center; font-size: 11px; color: var(--muted); line-height: 1.8; padding: 12px; }
+  footer { text-align: center; margin-top: 60px; padding-top: 30px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; line-height: 1.8; }
+  @media (max-width: 640px) {
     .form-grid { grid-template-columns: 1fr; }
-    .results-grid { grid-template-columns: 1fr; }
     .form-card { padding: 24px 20px; }
     h1 { letter-spacing: -1px; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .vs-divider { padding: 12px 0; }
+    .diff-banner { flex-direction: column; text-align: center; }
   }
 </style>
 </head>
@@ -511,17 +130,21 @@
 <div class="container">
 
   <header>
-    <div class="logo-tag"><div class="logo-dot"></div> For African Freelancers</div>
+    <div class="logo-tag"><div class="logo-dot"></div> For African Freelancers · 2026</div>
     <h1>Naija<span>Pay</span>Calc</h1>
-    <p class="subtitle">Stop undercharging. Know exactly what to charge, what gets deducted, and what lands in your account.</p>
+    <p class="subtitle">Stop undercharging. See exactly what you earn now — and what you should be earning.</p>
   </header>
 
-  <div class="rate-banner" id="rateBanner">
-    <span>Live Rate:</span>
-    <strong id="liveRate">Loading...</strong>
-    <span>USD/NGN</span>
-    <div class="rate-live"><div class="rate-live-dot"></div> LIVE</div>
+  <div class="rate-banner">
+    <span>Parallel Market Rate:</span>
+    <strong>₦1,430</strong>
+    <span>per USD</span>
+    <div class="rate-fixed"><div class="rate-fixed-dot"></div> MARCH 2026</div>
   </div>
+
+  <p class="rate-note">
+    ℹ️ Rates are fixed for March 2026 and updated quarterly. The parallel market rate is used as it reflects what most Nigerian freelancers actually receive.
+  </p>
 
   <div class="form-card">
     <div class="form-grid">
@@ -529,15 +152,27 @@
         <label>Your Skill</label>
         <select id="skill">
           <option value="">Select skill...</option>
-          <option value="backend">Backend Developer</option>
-          <option value="frontend">Frontend Developer</option>
-          <option value="fullstack">Fullstack Developer</option>
-          <option value="mobile">Mobile Developer</option>
-          <option value="designer">UI/UX Designer</option>
-          <option value="writer">Technical Writer</option>
-          <option value="devops">DevOps / Cloud</option>
-          <option value="data">Data Analyst</option>
-          <option value="pm">Product Manager</option>
+          <optgroup label="Developers">
+            <option value="backend">Backend Developer</option>
+            <option value="frontend">Frontend Developer</option>
+            <option value="fullstack">Fullstack Developer</option>
+            <option value="mobile">Mobile Developer</option>
+            <option value="devops">DevOps / Cloud</option>
+          </optgroup>
+          <optgroup label="Designers">
+            <option value="uiux">UI/UX Designer</option>
+            <option value="graphic">Graphic Designer</option>
+          </optgroup>
+          <optgroup label="Writers">
+            <option value="content">Content Writer</option>
+            <option value="technical">Technical Writer</option>
+            <option value="copy">Copywriter</option>
+          </optgroup>
+          <optgroup label="Data & Product">
+            <option value="data">Data Analyst</option>
+            <option value="datascience">Data Scientist</option>
+            <option value="pm">Product Manager</option>
+          </optgroup>
         </select>
       </div>
 
@@ -545,277 +180,302 @@
         <label>Experience Level</label>
         <select id="experience">
           <option value="">Select level...</option>
-          <option value="beginner">Beginner (0–1 yr)</option>
-          <option value="mid">Mid-level (2–3 yrs)</option>
-          <option value="senior">Senior (4+ yrs)</option>
+          <option value="entry">Entry (0–2 yrs)</option>
+          <option value="mid">Mid-level (2–5 yrs)</option>
+          <option value="senior">Senior (5+ yrs)</option>
         </select>
       </div>
 
       <div class="field">
         <label>Project Type</label>
-        <select id="projectType" onchange="toggleHours()">
+        <select id="projectType" onchange="toggleInputs()">
           <option value="hourly">Hourly Rate</option>
-          <option value="fixed">Fixed Project</option>
-          <option value="monthly">Monthly Retainer</option>
+          <option value="project">Fixed Project (40hrs)</option>
+          <option value="retainer">Monthly Retainer (80hrs)</option>
         </select>
       </div>
 
       <div class="field" id="hoursField">
         <label>Hours Per Week</label>
-        <input type="number" id="hours" value="20" min="1" max="80" placeholder="20">
-        <span class="hint">Used to estimate monthly income</span>
+        <input type="number" id="hours" value="20" min="1" max="80">
+        <span class="hint">Used to estimate monthly earnings</span>
       </div>
 
       <div class="field full">
-        <label>Your Current / Target Rate (USD)</label>
+        <label>Your Current Rate (USD)</label>
         <div class="rate-input-wrap">
           <span class="currency">$</span>
           <input type="number" id="currentRate" placeholder="e.g. 25" min="1">
         </div>
-        <span class="hint">Enter 0 to get our recommended rate for your level</span>
+        <span class="hint">Enter your current or target rate to see how it compares to the 2026 market.</span>
       </div>
     </div>
-
-    <button class="calculate-btn" onclick="calculate()">
-      Calculate My Pay ₦
-    </button>
+    <button class="calculate-btn" onclick="calculate()">See How You Compare ₦</button>
   </div>
 
-  <!-- Results -->
   <div class="results" id="results">
 
-    <div class="results-header">
+    <div class="verdict-section">
       <div class="verdict" id="verdict"></div>
-      <p style="color: var(--muted); font-size: 14px;" id="verdictMsg"></p>
+      <p class="verdict-sub" id="verdictMsg"></p>
     </div>
 
-    <div class="results-grid">
-      <div class="result-card primary">
-        <div class="result-label">You Should Charge</div>
-        <div class="result-value" id="recommendedRate">—</div>
-        <div class="result-sub" id="recommendedType">per hour</div>
+    <div class="comparison-label">Your Rate vs. What The Market Pays</div>
+
+    <div class="comparison-grid">
+      <div class="comp-col yours">
+        <div class="comp-header">
+          <div class="comp-title">Your Rate</div>
+          <div class="comp-rate" id="yourRateDisplay">—</div>
+          <div class="comp-rate-sub" id="yourRateType">—</div>
+        </div>
+        <div class="comp-rows">
+          <div class="comp-row"><div class="comp-row-label"><span class="comp-row-icon">💵</span>Gross (USD)</div><div class="comp-row-value" id="yourGrossUSD">—</div></div>
+          <div class="comp-row"><div class="comp-row-label"><span class="comp-row-icon">🇳🇬</span>Gross (Naira)</div><div class="comp-row-value" id="yourGrossNGN">—</div></div>
+          <div class="comp-row"><div class="comp-row-label"><span class="comp-row-icon">📤</span>Platform Fee</div><div class="comp-row-value" id="yourFee" style="color:var(--red)">—</div></div>
+          <div class="comp-row"><div class="comp-row-label"><span class="comp-row-icon">🏛️</span>Tax estimate*</div><div class="comp-row-value" id="yourTax" style="color:var(--red)">—</div></div>
+          <div class="comp-row takehome"><div class="comp-row-label"><span class="comp-row-icon">💰</span>You Take Home</div><div class="comp-row-value" id="yourTakeHome">—</div></div>
+        </div>
       </div>
-      <div class="result-card">
-        <div class="result-label">Gross in Naira</div>
-        <div class="result-value" id="grossNaira" style="color: var(--text)">—</div>
-        <div class="result-sub">before deductions</div>
-      </div>
-      <div class="result-card">
-        <div class="result-label">You Take Home</div>
-        <div class="result-value" id="takeHome" style="color: var(--green)">—</div>
-        <div class="result-sub" id="takeHomeSub">after all fees</div>
+
+      <div class="vs-divider"><div class="vs-badge">VS</div></div>
+
+      <div class="comp-col market">
+        <div class="comp-header">
+          <div class="comp-title">2026 Market Rate</div>
+          <div class="comp-rate" id="marketRateDisplay">—</div>
+          <div class="comp-rate-sub" id="marketRateType">—</div>
+        </div>
+        <div class="comp-rows">
+          <div class="comp-row"><div class="comp-row-label"><span class="comp-row-icon">💵</span>Gross (USD)</div><div class="comp-row-value" id="mktGrossUSD">—</div></div>
+          <div class="comp-row"><div class="comp-row-label"><span class="comp-row-icon">🇳🇬</span>Gross (Naira)</div><div class="comp-row-value" id="mktGrossNGN">—</div></div>
+          <div class="comp-row"><div class="comp-row-label"><span class="comp-row-icon">📤</span>Platform Fee</div><div class="comp-row-value" id="mktFee" style="color:var(--red)">—</div></div>
+          <div class="comp-row"><div class="comp-row-label"><span class="comp-row-icon">🏛️</span>Tax estimate*</div><div class="comp-row-value" id="mktTax" style="color:var(--red)">—</div></div>
+          <div class="comp-row takehome"><div class="comp-row-label"><span class="comp-row-icon">💰</span>You Take Home</div><div class="comp-row-value" id="mktTakeHome">—</div></div>
+        </div>
       </div>
     </div>
 
-    <!-- Platform comparison -->
+    <div class="diff-banner" id="diffBanner" style="display:none">
+      <div>
+        <div class="diff-banner-label">You're leaving <strong id="diffUSD">—</strong> on the table every month</div>
+        <div class="diff-sub">That's <span id="diffNGN" style="color:var(--gold)">—</span> in Naira you could be earning</div>
+      </div>
+      <div style="text-align:right">
+        <div class="diff-amount" id="diffTakeHome">—</div>
+        <div class="diff-sub">extra take-home per month</div>
+      </div>
+    </div>
+
     <div class="breakdown-card">
-      <div class="breakdown-title">Platform Fee Comparison</div>
+      <div class="breakdown-title">Platform Fee Details</div>
+      <div class="breakdown-subtitle" id="breakdownSubtitle">Showing breakdown for your rate via Raenest</div>
+
       <div class="platform-tabs">
-        <button class="platform-tab active" onclick="selectPlatform('raenest', this)">Raenest</button>
-        <button class="platform-tab" onclick="selectPlatform('payoneer', this)">Payoneer</button>
-        <button class="platform-tab" onclick="selectPlatform('wise', this)">Wise</button>
-        <button class="platform-tab" onclick="selectPlatform('upwork', this)">Upwork</button>
+        <button class="platform-tab active" onclick="selectPlatform('raenest',this)">Raenest ⭐</button>
+        <button class="platform-tab" onclick="selectPlatform('wise',this)">Wise</button>
+        <button class="platform-tab" onclick="selectPlatform('payoneer',this)">Payoneer</button>
+        <button class="platform-tab" onclick="selectPlatform('crypto',this)">Crypto (USDT)</button>
+        <button class="platform-tab" onclick="selectPlatform('upwork',this)">Upwork</button>
       </div>
+
+      <!-- Raenest info box — only shows when Raenest is selected -->
+      <div class="raenest-info" id="raenestInfo">
+        <strong>ℹ️ Raenest Fee Structure (Updated 2026)</strong>
+        <div class="raenest-row"><span class="raenest-dot">·</span><span>First 4 deposits/month FREE — ACH, USDC, USDT, GBP, EUR</span></div>
+        <div class="raenest-row"><span class="raenest-dot">·</span><span>After 4 free deposits: $1 flat fee per deposit</span></div>
+        <div class="raenest-row"><span class="raenest-dot">·</span><span>Conversion fee: 0.5% (min $0.25, max $2.70)</span></div>
+        <div class="raenest-row"><span class="raenest-dot">·</span><span>NGN deposits and transfers: always FREE</span></div>
+        <div class="raenest-row"><span class="raenest-dot">·</span><span>SWIFT deposits: subject to separate fees</span></div>
+      </div>
+
       <div id="breakdown"></div>
     </div>
 
-    <div class="tip-card" id="tipCard">
+    <div class="tip-card">
       <span class="tip-icon">💡</span>
       <span id="tipText"></span>
     </div>
 
+    <div class="disclaimer">
+      * Tax estimate is for reference only. Nigerian freelancers earning foreign income may be exempt from VAT on exports.<br>
+      Consult a tax professional for accurate advice on your situation.<br><br>
+      Rates based on March 2026 market data · Parallel market rate ₦1,430/USD · Platform fees are approximate
+    </div>
   </div>
 
   <footer>
     Built for Nigerian freelancers who deserve to know their worth 🇳🇬<br>
-    <small>Exchange rates are live from open APIs. Platform fees are approximate.</small>
+    <small>2026 Rate Data · Parallel Market Rate · Real Platform Fees</small>
   </footer>
-
 </div>
 
 <script>
-// Rate data
-const rates = {
-  backend:    { beginner: 15, mid: 35, senior: 65 },
-  frontend:   { beginner: 12, mid: 30, senior: 55 },
-  fullstack:  { beginner: 18, mid: 40, senior: 75 },
-  mobile:     { beginner: 15, mid: 38, senior: 70 },
-  designer:   { beginner: 10, mid: 25, senior: 50 },
-  writer:     { beginner: 8,  mid: 20, senior: 40 },
-  devops:     { beginner: 20, mid: 45, senior: 80 },
-  data:       { beginner: 12, mid: 30, senior: 60 },
-  pm:         { beginner: 15, mid: 35, senior: 65 },
+const rateCard = {
+  backend:     { entry:{h:22,p:1000,r:3500}, mid:{h:50,p:2500,r:7850},  senior:{h:92,p:5000,r:15000} },
+  frontend:    { entry:{h:17,p:800, r:2900}, mid:{h:42,p:2000,r:6150},  senior:{h:80,p:4150,r:12000} },
+  fullstack:   { entry:{h:27,p:1250,r:4150}, mid:{h:60,p:3000,r:9000},  senior:{h:110,p:6000,r:16750} },
+  mobile:      { entry:{h:22,p:1000,r:3500}, mid:{h:55,p:2750,r:8400},  senior:{h:102,p:5500,r:15400} },
+  devops:      { entry:{h:32,p:1500,r:4750}, mid:{h:67,p:3400,r:9550},  senior:{h:122,p:7000,r:18000} },
+  uiux:        { entry:{h:16,p:775, r:2550}, mid:{h:37,p:1800,r:5600},  senior:{h:75,p:4150,r:11250} },
+  graphic:     { entry:{h:13,p:625, r:2150}, mid:{h:32,p:1600,r:4850},  senior:{h:60,p:3400,r:8750} },
+  content:     { entry:{h:12,p:550, r:2000}, mid:{h:30,p:1400,r:3250},  senior:{h:57,p:2800,r:5000} },
+  technical:   { entry:{h:17,p:800, r:2500}, mid:{h:40,p:1900,r:4250},  senior:{h:67,p:3300,r:6500} },
+  copy:        { entry:{h:15,p:700, r:2300}, mid:{h:35,p:1650,r:3750},  senior:{h:62,p:3150,r:5750} },
+  data:        { entry:{h:17,p:800, r:2900}, mid:{h:45,p:2100,r:7000},  senior:{h:82,p:4500,r:12600} },
+  datascience: { entry:{h:22,p:1000,r:3500}, mid:{h:55,p:2750,r:8400},  senior:{h:100,p:5500,r:15250} },
+  pm:          { entry:{h:22,p:1000,r:3500}, mid:{h:50,p:2500,r:7850},  senior:{h:92,p:5000,r:15000} },
 };
 
 const platforms = {
-  raenest:  { name: 'Raenest',  fee: 0.01, icon: '🟢', color: '#22c55e', desc: '1% receiving fee — best for Nigerians' },
-  payoneer: { name: 'Payoneer', fee: 0.02, icon: '🔴', color: '#ef4444', desc: '2% receiving fee' },
-  wise:     { name: 'Wise',     fee: 0.0065, icon: '🔵', color: '#3b82f6', desc: '~0.65% transfer fee' },
-  upwork:   { name: 'Upwork',   fee: 0.10, icon: '🟡', color: '#f59e0b', desc: '10% service fee on earnings' },
+  raenest:  { name:'Raenest',       icon:'🟢', calc:(u)=>Math.min(1+u*0.005,3.70), desc:'First 4 deposits/month FREE · After: $1 flat + 0.5% conversion (min $0.25, max $2.70)' },
+  wise:     { name:'Wise',          icon:'🔵', calc:(u)=>u*0.01,                   desc:'~0.5–2% variable, mid-market rate' },
+  payoneer: { name:'Payoneer',      icon:'🔴', calc:(u)=>u*0.05,                   desc:'3% receiving + 2–3% conversion markup' },
+  crypto:   { name:'Crypto (USDT)', icon:'🟡', calc:(u)=>u*0.02,                   desc:'0.1–1% network fee + 1–3% P2P spread' },
+  upwork:   { name:'Upwork',        icon:'⚪', calc:(u)=>u*0.10,                   desc:'10% service fee on all earnings' },
 };
 
-const tips = {
-  low: "You're undercharging! Nigerian freelancers on average earn 40% less than their global peers. Your skills are worth more — raise your rate and communicate your value clearly.",
-  fair: "Your rate is in the right range. Consider raising it 10–15% for new clients — most won't push back, and you'll know immediately if they value your work.",
-  great: "Excellent rate! You're charging competitively. Focus on building long-term retainer relationships to stabilize your monthly income in Naira.",
-};
-
-let usdToNgn = 1600;
+const NGN = 1430;
 let selectedPlatform = 'raenest';
 let lastCalc = {};
 
-// Fetch live exchange rate
-async function fetchRate() {
-  try {
-    const res = await fetch('https://open.er-api.com/v6/latest/USD');
-    const data = await res.json();
-    if (data.rates && data.rates.NGN) {
-      usdToNgn = data.rates.NGN;
-      document.getElementById('liveRate').textContent = '₦' + usdToNgn.toLocaleString('en-NG', {maximumFractionDigits: 0});
-    }
-  } catch {
-    document.getElementById('liveRate').textContent = '₦' + usdToNgn.toLocaleString();
-    document.querySelector('.rate-live').innerHTML = '<div class="rate-live-dot" style="background:var(--orange)"></div> CACHED';
-  }
+function toggleInputs() {
+  document.getElementById('hoursField').style.display =
+    document.getElementById('projectType').value === 'hourly' ? 'flex' : 'none';
 }
 
-fetchRate();
+function fmt(n) { return '₦' + Math.round(n).toLocaleString('en-NG'); }
+function fmtUSD(n) { return '$' + n.toLocaleString('en-US', {maximumFractionDigits:0}); }
+function fmtUSDp(n) { return '$' + n.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2}); }
 
-function toggleHours() {
-  const type = document.getElementById('projectType').value;
-  document.getElementById('hoursField').style.display = type === 'hourly' ? 'flex' : 'none';
-}
-
-function formatNaira(amount) {
-  return '₦' + Math.round(amount).toLocaleString('en-NG');
-}
-
-function formatUSD(amount) {
-  return '$' + amount.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+function calcTakeHome(grossUSD, platformKey) {
+  const p = platforms[platformKey];
+  const fee = p.calc(grossUSD);
+  const netUSD = grossUSD - fee;
+  const naira = netUSD * NGN;
+  const tax = naira * 0.075;
+  return { fee, netUSD, naira, tax, final: naira - tax };
 }
 
 function selectPlatform(key, btn) {
   selectedPlatform = key;
   document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
-  if (lastCalc.grossUSD) renderBreakdown(lastCalc.grossUSD);
+  // Show/hide Raenest info box
+  document.getElementById('raenestInfo').style.display = key === 'raenest' ? 'block' : 'none';
+  if (lastCalc.yourGrossUSD) updatePlatformDisplay();
 }
 
-function renderBreakdown(grossUSD) {
+function updatePlatformDisplay() {
+  const { yourGrossUSD, mktGrossUSD } = lastCalc;
   const p = platforms[selectedPlatform];
-  const fee = grossUSD * p.fee;
-  const afterFee = grossUSD - fee;
-  const naira = afterFee * usdToNgn;
-  const taxEst = naira * 0.075; // rough VAT estimate
-  const finalNaira = naira - taxEst;
+  const yours = calcTakeHome(yourGrossUSD, selectedPlatform);
+  const mkt = calcTakeHome(mktGrossUSD, selectedPlatform);
 
-  document.getElementById('takeHome').textContent = formatNaira(finalNaira);
-  document.getElementById('takeHomeSub').textContent = `via ${p.name}`;
+  document.getElementById('yourFee').textContent = '-' + fmtUSDp(yours.fee);
+  document.getElementById('yourTax').textContent = '-' + fmt(yours.tax);
+  document.getElementById('yourTakeHome').textContent = fmt(yours.final);
+  document.getElementById('mktFee').textContent = '-' + fmtUSDp(mkt.fee);
+  document.getElementById('mktTax').textContent = '-' + fmt(mkt.tax);
+  document.getElementById('mktTakeHome').textContent = fmt(mkt.final);
+
+  const diffTakeHome = mkt.final - yours.final;
+  const diffUSD = mktGrossUSD - yourGrossUSD;
+  document.getElementById('diffUSD').textContent = fmtUSD(diffUSD);
+  document.getElementById('diffNGN').textContent = fmt(diffUSD * NGN);
+  document.getElementById('diffTakeHome').textContent = '+' + fmt(diffTakeHome);
+
+  document.getElementById('breakdownSubtitle').textContent =
+    `Showing detailed breakdown for your rate via ${p.name}`;
 
   document.getElementById('breakdown').innerHTML = `
     <div class="breakdown-row">
-      <div class="breakdown-label">
-        <div class="breakdown-icon" style="background:rgba(245,200,66,0.1)">💵</div>
-        Gross Earnings (USD)
-      </div>
-      <div class="breakdown-amount">${formatUSD(grossUSD)}</div>
+      <div class="breakdown-label"><div class="breakdown-icon" style="background:rgba(245,200,66,0.1)">💵</div>Gross Earnings (your rate)</div>
+      <div class="breakdown-amount">${fmtUSD(yourGrossUSD)}</div>
     </div>
     <div class="breakdown-row">
-      <div class="breakdown-label">
-        <div class="breakdown-icon" style="background:rgba(239,68,68,0.1)">📤</div>
-        ${p.name} Fee (${(p.fee * 100).toFixed(1)}%)
-        <span style="font-size:11px;color:var(--muted);margin-left:4px">${p.desc}</span>
-      </div>
-      <div class="breakdown-amount negative">-${formatUSD(fee)}</div>
+      <div class="breakdown-label"><div class="breakdown-icon" style="background:rgba(239,68,68,0.1)">${p.icon}</div>${p.name} Fee<span class="breakdown-note">${p.desc}</span></div>
+      <div class="breakdown-amount negative">-${fmtUSDp(yours.fee)}</div>
     </div>
     <div class="breakdown-row">
-      <div class="breakdown-label">
-        <div class="breakdown-icon" style="background:rgba(34,197,94,0.1)">🇳🇬</div>
-        Converted to Naira (₦${Math.round(usdToNgn).toLocaleString()}/USD)
-      </div>
-      <div class="breakdown-amount positive">${formatNaira(naira)}</div>
+      <div class="breakdown-label"><div class="breakdown-icon" style="background:rgba(34,197,94,0.1)">🇳🇬</div>Converted to Naira<span class="breakdown-note">@ ₦${NGN.toLocaleString()}/USD parallel rate</span></div>
+      <div class="breakdown-amount positive">${fmt(yours.naira)}</div>
     </div>
     <div class="breakdown-row">
-      <div class="breakdown-label">
-        <div class="breakdown-icon" style="background:rgba(249,115,22,0.1)">🏛️</div>
-        Estimated Tax (7.5% VAT)
-      </div>
-      <div class="breakdown-amount negative">-${formatNaira(taxEst)}</div>
+      <div class="breakdown-label"><div class="breakdown-icon" style="background:rgba(249,115,22,0.1)">🏛️</div>Tax Estimate*<span class="breakdown-note">consult a tax professional</span></div>
+      <div class="breakdown-amount negative">-${fmt(yours.tax)}</div>
     </div>
     <div class="breakdown-row">
-      <div class="breakdown-label" style="font-weight:600;font-size:15px">
-        <div class="breakdown-icon" style="background:rgba(245,200,66,0.15)">💰</div>
-        You Take Home
-      </div>
-      <div class="breakdown-amount highlight">${formatNaira(finalNaira)}</div>
+      <div class="breakdown-label" style="font-weight:600;font-size:15px"><div class="breakdown-icon" style="background:rgba(245,200,66,0.15)">💰</div>Your Take Home (your rate)</div>
+      <div class="breakdown-amount highlight">${fmt(yours.final)}</div>
     </div>
   `;
 }
 
 function calculate() {
   const skill = document.getElementById('skill').value;
-  const experience = document.getElementById('experience').value;
-  const projectType = document.getElementById('projectType').value;
+  const exp = document.getElementById('experience').value;
+  const type = document.getElementById('projectType').value;
   const hours = parseFloat(document.getElementById('hours').value) || 20;
-  const currentRate = parseFloat(document.getElementById('currentRate').value) || 0;
+  const inputRate = parseFloat(document.getElementById('currentRate').value) || 0;
 
-  if (!skill || !experience) {
-    alert('Please select your skill and experience level!');
-    return;
-  }
+  if (!skill || !exp) { alert('Please select your skill and experience level!'); return; }
+  if (!inputRate || inputRate <= 0) { alert('Please enter your current rate!'); return; }
 
-  const recommended = rates[skill][experience];
-  const userRate = currentRate > 0 ? currentRate : recommended;
+  const mkt = rateCard[skill][exp];
+  const marketRate = type === 'hourly' ? mkt.h : type === 'project' ? mkt.p : mkt.r;
+  const typeLabels = { hourly:'per hour', project:'fixed project (40hrs)', retainer:'per month (80hrs)' };
 
-  let grossUSD, displayRate, displayType;
-
-  if (projectType === 'hourly') {
-    grossUSD = userRate * hours * 4; // monthly
-    displayRate = formatUSD(userRate);
-    displayType = 'per hour';
-  } else if (projectType === 'fixed') {
-    grossUSD = userRate;
-    displayRate = formatUSD(userRate);
-    displayType = 'fixed project';
+  let yourGrossUSD, mktGrossUSD;
+  if (type === 'hourly') {
+    yourGrossUSD = inputRate * hours * 4;
+    mktGrossUSD = marketRate * hours * 4;
   } else {
-    grossUSD = userRate;
-    displayRate = formatUSD(userRate);
-    displayType = 'per month';
+    yourGrossUSD = inputRate;
+    mktGrossUSD = marketRate;
   }
 
-  // Verdict
-  let verdictKey, verdictText, verdictEmoji;
-  if (currentRate === 0 || currentRate >= recommended * 0.9) {
-    verdictKey = 'great';
-    verdictText = 'Your rate is competitive for the Nigerian market';
-    verdictEmoji = '🔥';
-  } else if (currentRate >= recommended * 0.6) {
-    verdictKey = 'fair';
-    verdictText = 'You could charge more — here\'s what the market pays';
-    verdictEmoji = '⚡';
+  const ratio = inputRate / marketRate;
+  let verdictKey, verdictEmoji, verdictText, tipText;
+
+  if (ratio >= 1.2) {
+    verdictKey = 'excellent'; verdictEmoji = '🔥';
+    verdictText = `You're charging ${Math.round((ratio-1)*100)}% above market rate. Your skills are in high demand!`;
+    tipText = "Outstanding! You're commanding premium rates. Focus on locking in long-term retainer contracts — stable monthly Naira income beats chasing one-off projects. Consider raising rates further for new clients.";
+  } else if (ratio >= 0.8) {
+    verdictKey = 'fair'; verdictEmoji = '✅';
+    verdictText = `Your rate is competitive and within the 2026 market range for your skill and experience.`;
+    tipText = "Solid rate! Consider raising it 10–15% for new clients — most won't push back. Always negotiate in USD, never Naira — it protects you from exchange rate fluctuations.";
   } else {
-    verdictKey = 'low';
-    verdictText = 'You\'re undercharging significantly — time to raise your rates';
-    verdictEmoji = '⚠️';
+    verdictKey = 'low'; verdictEmoji = '⚠️';
+    verdictText = `You're charging ${Math.round((1-ratio)*100)}% below market. You could earn ${fmtUSD(marketRate - inputRate)} more ${typeLabels[type]}.`;
+    tipText = `The 2026 market pays ${fmtUSD(marketRate)} ${typeLabels[type]} for your skill. Start raising your rate with new clients immediately — most international clients won't push back. Never negotiate against yourself before they even respond.`;
   }
 
-  const verdictEl = document.getElementById('verdict');
-  verdictEl.className = `verdict ${verdictKey}`;
-  verdictEl.innerHTML = `<span class="verdict-icon">${verdictEmoji}</span> ${verdictKey.toUpperCase()}`;
+  const v = document.getElementById('verdict');
+  v.className = `verdict ${verdictKey}`;
+  v.innerHTML = `<span>${verdictEmoji}</span> ${verdictKey.toUpperCase()}`;
   document.getElementById('verdictMsg').textContent = verdictText;
+  document.getElementById('yourRateDisplay').textContent = fmtUSD(inputRate);
+  document.getElementById('yourRateType').textContent = typeLabels[type];
+  document.getElementById('marketRateDisplay').textContent = fmtUSD(marketRate);
+  document.getElementById('marketRateType').textContent = typeLabels[type] + ' · 2026 market';
+  document.getElementById('yourGrossUSD').textContent = fmtUSD(yourGrossUSD);
+  document.getElementById('yourGrossNGN').textContent = fmt(yourGrossUSD * NGN);
+  document.getElementById('mktGrossUSD').textContent = fmtUSD(mktGrossUSD);
+  document.getElementById('mktGrossNGN').textContent = fmt(mktGrossUSD * NGN);
+  document.getElementById('diffBanner').style.display = ratio < 1 ? 'flex' : 'none';
+  document.getElementById('tipText').textContent = tipText;
 
-  document.getElementById('recommendedRate').textContent = currentRate > 0 ? formatUSD(userRate) : formatUSD(recommended);
-  document.getElementById('recommendedType').textContent = displayType;
-  document.getElementById('grossNaira').textContent = formatNaira(grossUSD * usdToNgn);
+  // Show Raenest info box by default since it's the selected platform
+  document.getElementById('raenestInfo').style.display = selectedPlatform === 'raenest' ? 'block' : 'none';
 
-  lastCalc = { grossUSD, recommended, userRate };
-  renderBreakdown(grossUSD);
+  lastCalc = { yourGrossUSD, mktGrossUSD };
+  updatePlatformDisplay();
 
-  document.getElementById('tipText').textContent = tips[verdictKey];
-
-  const results = document.getElementById('results');
-  results.classList.add('show');
-  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const r = document.getElementById('results');
+  r.classList.add('show');
+  setTimeout(() => r.scrollIntoView({ behavior:'smooth', block:'start' }), 100);
 }
 </script>
 </body>
