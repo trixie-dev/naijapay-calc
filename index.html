@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NaijaPayCalc — Know Your Worth</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --card: #16161f;
+    --border: #1e1e2e;
+    --gold: #f5c842;
+    --gold2: #e8a020;
+    --green: #22c55e;
+    --red: #ef4444;
+    --orange: #f97316;
+    --text: #f0ede8;
+    --muted: #6b6880;
+    --accent: #8b5cf6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 20%, rgba(245,200,66,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(139,92,246,0.06) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Naira pattern overlay */
+  body::after {
+    content: '₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦ ₦';
+    position: fixed;
+    inset: 0;
+    font-size: 80px;
+    line-height: 1.4;
+    color: rgba(245,200,66,0.015);
+    word-break: break-all;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 60px;
+    animation: fadeDown 0.7s ease both;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .logo-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(245,200,66,0.1);
+    border: 1px solid rgba(245,200,66,0.25);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .logo-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(42px, 8vw, 72px);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -2px;
+  }
+
+  h1 span {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .subtitle {
+    font-size: 17px;
+    color: var(--muted);
+    font-weight: 300;
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Form card */
+  .form-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 32px;
+    animation: fadeUp 0.7s ease 0.2s both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .field.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  select, input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6880' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+    cursor: pointer;
+  }
+
+  select:focus, input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(245,200,66,0.1);
+  }
+
+  select option { background: var(--surface); }
+
+  .rate-input-wrap {
+    position: relative;
+  }
+
+  .rate-input-wrap .currency {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold);
+    font-family: 'DM Mono', monospace;
+    font-weight: 500;
+    font-size: 15px;
+  }
+
+  .rate-input-wrap input {
+    padding-left: 36px;
+  }
+
+  .hint {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .calculate-btn {
+    width: 100%;
+    padding: 18px;
+    background: var(--gold);
+    color: #0a0a0f;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .calculate-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .calculate-btn:hover {
+    background: #f0b800;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px rgba(245,200,66,0.3);
+  }
+
+  .calculate-btn:hover::after { opacity: 1; }
+  .calculate-btn:active { transform: translateY(0); }
+
+  /* Results */
+  .results {
+    display: none;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .results.show { display: block; }
+
+  .results-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .verdict {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .verdict.great { background: rgba(34,197,94,0.15); color: var(--green); border: 1px solid rgba(34,197,94,0.3); }
+  .verdict.fair { background: rgba(249,115,22,0.15); color: var(--orange); border: 1px solid rgba(249,115,22,0.3); }
+  .verdict.low { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+
+  .verdict-icon { font-size: 18px; }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .result-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+
+  .result-card:hover { transform: translateY(-2px); }
+
+  .result-card.primary {
+    border-color: rgba(245,200,66,0.3);
+    background: linear-gradient(135deg, rgba(245,200,66,0.08) 0%, var(--card) 60%);
+  }
+
+  .result-card.primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+  }
+
+  .result-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+
+  .result-value {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .result-card.primary .result-value { color: var(--gold); }
+
+  .result-sub {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* Breakdown */
+  .breakdown-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+  }
+
+  .breakdown-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(30,30,46,0.8);
+  }
+
+  .breakdown-row:last-child { border-bottom: none; }
+
+  .breakdown-label {
+    font-size: 14px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .breakdown-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .breakdown-amount {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .breakdown-amount.negative { color: var(--red); }
+  .breakdown-amount.positive { color: var(--green); }
+  .breakdown-amount.highlight { color: var(--gold); font-size: 16px; font-weight: 700; }
+
+  /* Platform tabs */
+  .platform-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .platform-tab {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .platform-tab.active {
+    background: rgba(245,200,66,0.1);
+    border-color: rgba(245,200,66,0.3);
+    color: var(--gold);
+  }
+
+  .platform-tab:hover:not(.active) {
+    border-color: var(--muted);
+    color: var(--text);
+  }
+
+  /* Tips */
+  .tip-card {
+    background: rgba(139,92,246,0.08);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: #c4b5fd;
+    line-height: 1.6;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .tip-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* Exchange rate banner */
+  .rate-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: rgba(245,200,66,0.06);
+    border: 1px solid rgba(245,200,66,0.15);
+    border-radius: 10px;
+    padding: 10px 20px;
+    margin-bottom: 32px;
+    font-size: 13px;
+    color: var(--muted);
+    animation: fadeUp 0.7s ease 0.1s both;
+  }
+
+  .rate-banner strong { color: var(--gold); font-family: 'DM Mono', monospace; }
+
+  .rate-live {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  .rate-live-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: pulse 1.5s ease infinite;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 600px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: 1fr; }
+    .form-card { padding: 24px 20px; }
+    h1 { letter-spacing: -1px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="logo-tag"><div class="logo-dot"></div> For African Freelancers</div>
+    <h1>Naija<span>Pay</span>Calc</h1>
+    <p class="subtitle">Stop undercharging. Know exactly what to charge, what gets deducted, and what lands in your account.</p>
+  </header>
+
+  <div class="rate-banner" id="rateBanner">
+    <span>Live Rate:</span>
+    <strong id="liveRate">Loading...</strong>
+    <span>USD/NGN</span>
+    <div class="rate-live"><div class="rate-live-dot"></div> LIVE</div>
+  </div>
+
+  <div class="form-card">
+    <div class="form-grid">
+      <div class="field">
+        <label>Your Skill</label>
+        <select id="skill">
+          <option value="">Select skill...</option>
+          <option value="backend">Backend Developer</option>
+          <option value="frontend">Frontend Developer</option>
+          <option value="fullstack">Fullstack Developer</option>
+          <option value="mobile">Mobile Developer</option>
+          <option value="designer">UI/UX Designer</option>
+          <option value="writer">Technical Writer</option>
+          <option value="devops">DevOps / Cloud</option>
+          <option value="data">Data Analyst</option>
+          <option value="pm">Product Manager</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Experience Level</label>
+        <select id="experience">
+          <option value="">Select level...</option>
+          <option value="beginner">Beginner (0–1 yr)</option>
+          <option value="mid">Mid-level (2–3 yrs)</option>
+          <option value="senior">Senior (4+ yrs)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Project Type</label>
+        <select id="projectType" onchange="toggleHours()">
+          <option value="hourly">Hourly Rate</option>
+          <option value="fixed">Fixed Project</option>
+          <option value="monthly">Monthly Retainer</option>
+        </select>
+      </div>
+
+      <div class="field" id="hoursField">
+        <label>Hours Per Week</label>
+        <input type="number" id="hours" value="20" min="1" max="80" placeholder="20">
+        <span class="hint">Used to estimate monthly income</span>
+      </div>
+
+      <div class="field full">
+        <label>Your Current / Target Rate (USD)</label>
+        <div class="rate-input-wrap">
+          <span class="currency">$</span>
+          <input type="number" id="currentRate" placeholder="e.g. 25" min="1">
+        </div>
+        <span class="hint">Enter 0 to get our recommended rate for your level</span>
+      </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculate()">
+      Calculate My Pay ₦
+    </button>
+  </div>
+
+  <!-- Results -->
+  <div class="results" id="results">
+
+    <div class="results-header">
+      <div class="verdict" id="verdict"></div>
+      <p style="color: var(--muted); font-size: 14px;" id="verdictMsg"></p>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card primary">
+        <div class="result-label">You Should Charge</div>
+        <div class="result-value" id="recommendedRate">—</div>
+        <div class="result-sub" id="recommendedType">per hour</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">Gross in Naira</div>
+        <div class="result-value" id="grossNaira" style="color: var(--text)">—</div>
+        <div class="result-sub">before deductions</div>
+      </div>
+      <div class="result-card">
+        <div class="result-label">You Take Home</div>
+        <div class="result-value" id="takeHome" style="color: var(--green)">—</div>
+        <div class="result-sub" id="takeHomeSub">after all fees</div>
+      </div>
+    </div>
+
+    <!-- Platform comparison -->
+    <div class="breakdown-card">
+      <div class="breakdown-title">Platform Fee Comparison</div>
+      <div class="platform-tabs">
+        <button class="platform-tab active" onclick="selectPlatform('raenest', this)">Raenest</button>
+        <button class="platform-tab" onclick="selectPlatform('payoneer', this)">Payoneer</button>
+        <button class="platform-tab" onclick="selectPlatform('wise', this)">Wise</button>
+        <button class="platform-tab" onclick="selectPlatform('upwork', this)">Upwork</button>
+      </div>
+      <div id="breakdown"></div>
+    </div>
+
+    <div class="tip-card" id="tipCard">
+      <span class="tip-icon">💡</span>
+      <span id="tipText"></span>
+    </div>
+
+  </div>
+
+  <footer>
+    Built for Nigerian freelancers who deserve to know their worth 🇳🇬<br>
+    <small>Exchange rates are live from open APIs. Platform fees are approximate.</small>
+  </footer>
+
+</div>
+
+<script>
+// Rate data
+const rates = {
+  backend:    { beginner: 15, mid: 35, senior: 65 },
+  frontend:   { beginner: 12, mid: 30, senior: 55 },
+  fullstack:  { beginner: 18, mid: 40, senior: 75 },
+  mobile:     { beginner: 15, mid: 38, senior: 70 },
+  designer:   { beginner: 10, mid: 25, senior: 50 },
+  writer:     { beginner: 8,  mid: 20, senior: 40 },
+  devops:     { beginner: 20, mid: 45, senior: 80 },
+  data:       { beginner: 12, mid: 30, senior: 60 },
+  pm:         { beginner: 15, mid: 35, senior: 65 },
+};
+
+const platforms = {
+  raenest:  { name: 'Raenest',  fee: 0.01, icon: '🟢', color: '#22c55e', desc: '1% receiving fee — best for Nigerians' },
+  payoneer: { name: 'Payoneer', fee: 0.02, icon: '🔴', color: '#ef4444', desc: '2% receiving fee' },
+  wise:     { name: 'Wise',     fee: 0.0065, icon: '🔵', color: '#3b82f6', desc: '~0.65% transfer fee' },
+  upwork:   { name: 'Upwork',   fee: 0.10, icon: '🟡', color: '#f59e0b', desc: '10% service fee on earnings' },
+};
+
+const tips = {
+  low: "You're undercharging! Nigerian freelancers on average earn 40% less than their global peers. Your skills are worth more — raise your rate and communicate your value clearly.",
+  fair: "Your rate is in the right range. Consider raising it 10–15% for new clients — most won't push back, and you'll know immediately if they value your work.",
+  great: "Excellent rate! You're charging competitively. Focus on building long-term retainer relationships to stabilize your monthly income in Naira.",
+};
+
+let usdToNgn = 1600;
+let selectedPlatform = 'raenest';
+let lastCalc = {};
+
+// Fetch live exchange rate
+async function fetchRate() {
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    const data = await res.json();
+    if (data.rates && data.rates.NGN) {
+      usdToNgn = data.rates.NGN;
+      document.getElementById('liveRate').textContent = '₦' + usdToNgn.toLocaleString('en-NG', {maximumFractionDigits: 0});
+    }
+  } catch {
+    document.getElementById('liveRate').textContent = '₦' + usdToNgn.toLocaleString();
+    document.querySelector('.rate-live').innerHTML = '<div class="rate-live-dot" style="background:var(--orange)"></div> CACHED';
+  }
+}
+
+fetchRate();
+
+function toggleHours() {
+  const type = document.getElementById('projectType').value;
+  document.getElementById('hoursField').style.display = type === 'hourly' ? 'flex' : 'none';
+}
+
+function formatNaira(amount) {
+  return '₦' + Math.round(amount).toLocaleString('en-NG');
+}
+
+function formatUSD(amount) {
+  return '$' + amount.toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+}
+
+function selectPlatform(key, btn) {
+  selectedPlatform = key;
+  document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  if (lastCalc.grossUSD) renderBreakdown(lastCalc.grossUSD);
+}
+
+function renderBreakdown(grossUSD) {
+  const p = platforms[selectedPlatform];
+  const fee = grossUSD * p.fee;
+  const afterFee = grossUSD - fee;
+  const naira = afterFee * usdToNgn;
+  const taxEst = naira * 0.075; // rough VAT estimate
+  const finalNaira = naira - taxEst;
+
+  document.getElementById('takeHome').textContent = formatNaira(finalNaira);
+  document.getElementById('takeHomeSub').textContent = `via ${p.name}`;
+
+  document.getElementById('breakdown').innerHTML = `
+    <div class="breakdown-row">
+      <div class="breakdown-label">
+        <div class="breakdown-icon" style="background:rgba(245,200,66,0.1)">💵</div>
+        Gross Earnings (USD)
+      </div>
+      <div class="breakdown-amount">${formatUSD(grossUSD)}</div>
+    </div>
+    <div class="breakdown-row">
+      <div class="breakdown-label">
+        <div class="breakdown-icon" style="background:rgba(239,68,68,0.1)">📤</div>
+        ${p.name} Fee (${(p.fee * 100).toFixed(1)}%)
+        <span style="font-size:11px;color:var(--muted);margin-left:4px">${p.desc}</span>
+      </div>
+      <div class="breakdown-amount negative">-${formatUSD(fee)}</div>
+    </div>
+    <div class="breakdown-row">
+      <div class="breakdown-label">
+        <div class="breakdown-icon" style="background:rgba(34,197,94,0.1)">🇳🇬</div>
+        Converted to Naira (₦${Math.round(usdToNgn).toLocaleString()}/USD)
+      </div>
+      <div class="breakdown-amount positive">${formatNaira(naira)}</div>
+    </div>
+    <div class="breakdown-row">
+      <div class="breakdown-label">
+        <div class="breakdown-icon" style="background:rgba(249,115,22,0.1)">🏛️</div>
+        Estimated Tax (7.5% VAT)
+      </div>
+      <div class="breakdown-amount negative">-${formatNaira(taxEst)}</div>
+    </div>
+    <div class="breakdown-row">
+      <div class="breakdown-label" style="font-weight:600;font-size:15px">
+        <div class="breakdown-icon" style="background:rgba(245,200,66,0.15)">💰</div>
+        You Take Home
+      </div>
+      <div class="breakdown-amount highlight">${formatNaira(finalNaira)}</div>
+    </div>
+  `;
+}
+
+function calculate() {
+  const skill = document.getElementById('skill').value;
+  const experience = document.getElementById('experience').value;
+  const projectType = document.getElementById('projectType').value;
+  const hours = parseFloat(document.getElementById('hours').value) || 20;
+  const currentRate = parseFloat(document.getElementById('currentRate').value) || 0;
+
+  if (!skill || !experience) {
+    alert('Please select your skill and experience level!');
+    return;
+  }
+
+  const recommended = rates[skill][experience];
+  const userRate = currentRate > 0 ? currentRate : recommended;
+
+  let grossUSD, displayRate, displayType;
+
+  if (projectType === 'hourly') {
+    grossUSD = userRate * hours * 4; // monthly
+    displayRate = formatUSD(userRate);
+    displayType = 'per hour';
+  } else if (projectType === 'fixed') {
+    grossUSD = userRate;
+    displayRate = formatUSD(userRate);
+    displayType = 'fixed project';
+  } else {
+    grossUSD = userRate;
+    displayRate = formatUSD(userRate);
+    displayType = 'per month';
+  }
+
+  // Verdict
+  let verdictKey, verdictText, verdictEmoji;
+  if (currentRate === 0 || currentRate >= recommended * 0.9) {
+    verdictKey = 'great';
+    verdictText = 'Your rate is competitive for the Nigerian market';
+    verdictEmoji = '🔥';
+  } else if (currentRate >= recommended * 0.6) {
+    verdictKey = 'fair';
+    verdictText = 'You could charge more — here\'s what the market pays';
+    verdictEmoji = '⚡';
+  } else {
+    verdictKey = 'low';
+    verdictText = 'You\'re undercharging significantly — time to raise your rates';
+    verdictEmoji = '⚠️';
+  }
+
+  const verdictEl = document.getElementById('verdict');
+  verdictEl.className = `verdict ${verdictKey}`;
+  verdictEl.innerHTML = `<span class="verdict-icon">${verdictEmoji}</span> ${verdictKey.toUpperCase()}`;
+  document.getElementById('verdictMsg').textContent = verdictText;
+
+  document.getElementById('recommendedRate').textContent = currentRate > 0 ? formatUSD(userRate) : formatUSD(recommended);
+  document.getElementById('recommendedType').textContent = displayType;
+  document.getElementById('grossNaira').textContent = formatNaira(grossUSD * usdToNgn);
+
+  lastCalc = { grossUSD, recommended, userRate };
+  renderBreakdown(grossUSD);
+
+  document.getElementById('tipText').textContent = tips[verdictKey];
+
+  const results = document.getElementById('results');
+  results.classList.add('show');
+  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+</body>
+</html>
